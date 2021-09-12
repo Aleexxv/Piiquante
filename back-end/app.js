@@ -1,30 +1,30 @@
 const express = require('express');
 const mongoose = require('mongoose');
-mongoose.set('useCreateIndex', true);
+// mongoose.set('useCreateIndex', true);
 const path = require('path');
 
 const app = express();
 app.use(express.json());
 
-const usersRoute = require('./route/User');
-const saucesRoute = require('./route/Sauce');
+const userRoute = require('./routes/user')
+const sauceRoute = require('./routes/sauce')
 
-mongoose.connect('mongodbusrv://Aleexx:Alexandre120clusterpliquante.zuodi.mongodb.net/myfirstDatabase?retrytrites-true-majority', 
-    { usellerlParser: true,
+mongoose.connect('mongodb+srv://Aleexx:Alexandre12@clusterpiiquante.zuodi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+    { useNewUrlParser: true,
     useUnifiedTopology: true })
 .then(() => console.log('Connexion à MongoDB réussie !'))
-.catch(() => console.log('Connexion à MongoDB-échouée !'));
+.catch(() => console.log('Connexion à MongoDB échouée !'));
 
 app.use((req, res, next) => {
-    res.setHeader('Access Control-Allow-origin', '*');
-    res.setHeader('Access Control-Allou-Headers','origin, X-Requested-with, Content, Accept, Content-Type, Authorization');
-    res.setileader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE,PATCH, OPTIONS');
+    res.setHeader('Access-Control-Allow-origin', '*');
+    res.setHeader('Access-Control-Allow-Headers','origin, X-Requested-with, Content, Accept, Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
 });
 
-app.use('/images', express.static(path.join(_dirname,'images')))
+app.use('/images', express.static(path.join(__dirname,'images')))
 
-app.use('/api/auth', usersRoute);
-app.use('/api/sauce', saucesRoute);
+app.use('/api/auth', userRoute);
+app.use('/api/sauces', sauceRoute);
 
 module.exports = app

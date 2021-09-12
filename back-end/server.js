@@ -1,11 +1,8 @@
-let express = require('express');
-let server = express();
+const http = require('http');
+const app = require('./app');
 
-server.get('/', function (req, res){
-    res.setHeader('Content-Type', 'text/html');
-    res.status(200).send('<h1>hello world');
-});
+app.set('port', process.env.PORT || 3000);
+const server = http.createServer(app);
+console.log('port 3000 ok !');
 
-server.listen(3000, function() {
-    console.log('j\'écoute');
-}) 
+server.listen(process.env.PORT || 3000);
