@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 const User =  require('../models/User');
 
 exports.signUp = (req, res, next) => {
@@ -11,7 +11,7 @@ exports.signUp = (req, res, next) => {
             });
             console.log(user);
         user.save()
-        .then(() => res.status(201).json({ massage: 'utilisateur crée !'}))
+        .then(() => res.status(201).json({ message: 'utilisateur crée !'}))
         .catch (error => res.status(500).json({ error }));
     });
 };
@@ -22,14 +22,14 @@ exports.logIn = (req, res, next) => {
         if (!user) {
             return res.status(401).json(console.log('Utilisateur non trouvé'));
         }
-        bcrypt.compare( req.body.password, user.password )
+        bcrypt.compare(req.body.password, user.password)
         .then(valid => {
             if (!valid) {
                 return res.status(401).json(console.log('mot de passe non trouvé'));
             }
             res.status(200).json({
                 userId: user._id,
-                token: 'UNMOT'
+                token: 'TOKEN'
             });
         })
         .catch(res.status(500).json(console.log('token indéfini !')));
@@ -37,3 +37,8 @@ exports.logIn = (req, res, next) => {
     .catch (res.status(500).json(console.log('logIn Impossible !')));
 };
 
+// jwt.sign(
+//     { userId: user._id},
+//     'ERTG_OUIU_FYKB_FTYI',
+//     { expiresIn: '24h'}
+// )
