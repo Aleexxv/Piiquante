@@ -6,8 +6,9 @@ const path = require('path');
 const app = express();
 app.use(express.json());
 
-const userRoute = require('./routes/user')
-const sauceRoute = require('./routes/sauce')
+const userRoute = require('./routes/user');
+const sauceRoute = require('./routes/sauce');
+
 
 mongoose.connect('mongodb+srv://Aleexx:Alexandre12@clusterpiiquante.zuodi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
     { useNewUrlParser: true,
@@ -22,9 +23,9 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/images', express.static(path.join(__dirname,'images')))
+app.use('/images', express.static(path.join(__dirname,'images/')));
 
 app.use('/api/auth', userRoute);
 app.use('/api/sauces', sauceRoute);
 
-module.exports = app
+module.exports = app;
