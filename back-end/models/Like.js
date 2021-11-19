@@ -6,4 +6,5 @@ const likeSchema = mongoose.Schema({
     like: { type: Number, required: true},
 
 });
+
 module.exports = mongoose.model('Like', likeSchema)

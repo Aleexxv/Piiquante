@@ -1,7 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
-// mongoose.set('useCreateIndex', true);
 const path = require('path');
+require('dotenv').config();
+
 
 const app = express();
 app.use(express.json());
@@ -10,7 +11,7 @@ const userRoute = require('./routes/user');
 const sauceRoute = require('./routes/sauce');
 
 
-mongoose.connect('mongodb+srv://Aleexx:Alexandre12@clusterpiiquante.zuodi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+mongoose.connect(process.env.MONGODB_URI,
     { useNewUrlParser: true,
     useUnifiedTopology: true })
 .then(() => console.log('Connexion à MongoDB réussie !'))
