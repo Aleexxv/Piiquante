@@ -1,8 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User =  require('../models/User');
-require('dotenv').config();
-
 
 exports.signUp = (req, res, next) => {
     const saltRounds = 10;
@@ -11,15 +9,12 @@ exports.signUp = (req, res, next) => {
         const user = new User({
             email: req.body.email,
             password: hash
-        });
+        }); 
         user.save()
         .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
         .catch(error => res.status(400).json({ error }));
     });
 };
-
-// process.env.SALT_ROUNDS = 10
-
 
 exports.logIn = (req, res, next) => {
     User.findOne({ email: req.body.email })
@@ -36,7 +31,7 @@ exports.logIn = (req, res, next) => {
                 userId: user._id,
                 token: jwt.sign(
                     { userId: user._id},
-                    'ERTG_OUIU_FYKB_FTYI',
+                    process.env.JWT_SECRET,
                     { expiresIn: '24h'}
                 )
             });
@@ -45,3 +40,5 @@ exports.logIn = (req, res, next) => {
     })
     .catch (error => res.status(500).json({ error: error }));
 };
+
+// process.env.JWT_SECRET = 'ERTG_OUIU_FYKB_FTYI'

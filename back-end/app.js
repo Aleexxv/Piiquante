@@ -3,13 +3,11 @@ const mongoose = require('mongoose');
 const path = require('path');
 require('dotenv').config();
 
-
 const app = express();
 app.use(express.json());
 
 const userRoute = require('./routes/user');
 const sauceRoute = require('./routes/sauce');
-
 
 mongoose.connect(process.env.MONGODB_URI,
     { useNewUrlParser: true,
