@@ -32,7 +32,7 @@ exports.logIn = (req, res, next) => {
                 token: jwt.sign(
                     { userId: user._id},
                     process.env.JWT_SECRET,
-                    { expiresIn: '24h'}
+                    { expiresIn: '24H'}
                 )
             });
         })
@@ -41,4 +41,3 @@ exports.logIn = (req, res, next) => {
     .catch (error => res.status(500).json({ error: error }));
 };
 
-// process.env.JWT_SECRET = 'ERTG_OUIU_FYKB_FTYI'
